@@ -25,6 +25,7 @@ import time
 from tornado import locks
 
 # Bokeh imports
+from ..util.session_id import generate_jwt_token
 from .callbacks import _DocumentCallbackGroup
 
 #-----------------------------------------------------------------------------
@@ -125,6 +126,11 @@ class ServerSession(object):
     @property
     def id(self):
         return self._id
+
+    @property
+    def token(self):
+        ''' A JWT token to authenticate the session. '''
+        return generate_jwt_token(self.id)
 
     @property
     def destroyed(self):
